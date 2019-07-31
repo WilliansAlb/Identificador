@@ -7,22 +7,29 @@ var error2 = "ERROR(INICIO NUMERO)";
 var numero1 = "ERROR(DECIMAL)";
 var numero2 = "NUMERO";
 var identificador1 = "IDENTIFICADOR";
+var numero3 = 0;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 async function funcion() {
-    colocarImagen();
+    cargar1();
     console.log('Taking a break...');
     await sleep(1000);
     reconocedor();
     quitarImagen();
+    numero3=0;
 } 
-function colocarImagen(){
+function cargar1(){
     document.getElementById("icono").src ="cargando1.gif";
 }
 function quitarImagen(){
-    document.getElementById("icono").src ="";
+    if (numero3!=1){
+        document.getElementById("icono").src ="check1.png";
+    } else {
+        document.getElementById("icono").src ="no1.png";
+    }
+    
 }
 function reconocedor(){
     var temporal =  false;
@@ -50,18 +57,18 @@ function reconocedor(){
         }
         if (temporal==false){
             if (pb.charAt(0)>=0){
-                alert("es un error");
+                alert("ERROR POR EMPEZAR CON NUMEROS");
                 historial.innerHTML = historial.innerHTML + palabra.value.fontcolor("red") + "<br>";
                 tipo.innerHTML = tipo.innerHTML + error2.fontcolor("red") + "<br>";
+                numero3=1;
             }else{
-                alert("es un identificador");
                 historial.innerHTML = historial.innerHTML + palabra.value.fontcolor("green") + "<br>";
                 tipo.innerHTML = tipo.innerHTML + identificador1.fontcolor("green") + "<br>";
             }
         } else {
-            alert("es un error");
             historial.innerHTML = historial.innerHTML + palabra.value.fontcolor("red") + "<br>";
             tipo.innerHTML = tipo.innerHTML + error1.fontcolor("red") + "<br>";
+            numero3=1;
         }
     }
 }
